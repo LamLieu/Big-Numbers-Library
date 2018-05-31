@@ -4,50 +4,41 @@
 using namespace std;
 
 namespace BigNumbersLibrary {
-	class BigNumber {
-	public:
-		int sign;
-		vector<int> bigNum;
+	BigNumber::BigNumber() {
 		
-		BigNumber() : sign(1) {}
-		BigNumber(long long num) {
-			*this = num;
-		}
+	}
+	BigNumber::BigNumber(long long num) {
+		positive = true;
+	}
+	BigNumber::BigNumber(string s) {
+		positive = true;
+	}
+	BigNumber::BigNumber(BigNumber& const) {
+		positive = true;
+	}
 
-		static BigNumber Add(BigNumber a, BigNumber b) {
-			return a + b;
-		}
-		static BigNumber Subtract(BigNumber a, BigNumber b) {
-			return a - b;
-		}
-		static BigNumber Multiply(BigNumber a, BigNumber b) {
-			return a * b;
-		}
-		static BigNumber Divide(BigNumber a, BigNumber b) {
-			return a / b;
-		}
-		static BigNumber Mod(BigNumber a, BigNumber b) {
-			return a % b;
-		}
+	BigNumber BigNumber::Add(BigNumber &) {}
+	BigNumber BigNumber::Subtract(BigNumber &) {}
+	BigNumber BigNumber::Multiply(BigNumber &) {}
+	BigNumber BigNumber::Divide(BigNumber &) {}
+	BigNumber BigNumber::Mod(BigNumber &) {}
 
-		friend BigNumber operator + (BigNumber const &, BigNumber const &) {
-		
-		}
-		friend BigNumber operator - (BigNumber const &, BigNumber const &) {
-			
-		}
-		friend BigNumber operator * (BigNumber const &, BigNumber const &) {
-			
-		}
-		friend BigNumber operator / (BigNumber const &, BigNumber const &) {
-			
-		}
-		friend BigNumber operator % (BigNumber const &, BigNumber const &) {
-			
-		}
-		friend void operator = (long long num) {
-		
-		}
+	BigNumber BigNumber::operator + (BigNumber const & bigNum) {
 
-	};
+	}
+	BigNumber BigNumber::operator + (long long const & num) {}
+
+	BigNumber BigNumber::operator - (BigNumber const &) {}
+	BigNumber BigNumber::operator - (BigNumber const &) {}
+
+	BigNumber BigNumber::operator * (BigNumber const &) {}
+	BigNumber BigNumber::operator * (BigNumber const &) {}
+
+	BigNumber BigNumber::operator / (BigNumber const &) {}
+	BigNumber BigNumber::operator / (BigNumber const &) {}
+
+	BigNumber BigNumber::operator % (BigNumber const &) {}
+	BigNumber BigNumber::operator % (BigNumber const &) {}
+
+	BigNumber BigNumber::operator = (long long const &) {}
 }
