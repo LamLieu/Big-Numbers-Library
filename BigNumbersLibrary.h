@@ -1,41 +1,41 @@
 #pragma once
-#include <iostream>
 #include <vector>
+#include <string>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-namespace BigNumbersLibrary {
-	class BigNumber {
-	public:
-		bool positive;
+class BigNumber {
+private:
+	string base;
+	int digits = 0;
+	bool positive = true;
+	vector<int> numberVector;
 
-		BigNumber();
-		BigNumber(long long);
-		BigNumber(string);
-		BigNumber(BigNumber& const);
+public:
+	// Constructors
+	BigNumber();
+	BigNumber(int);
+	BigNumber(string);
+	BigNumber(vector<int>);
 
-		static BigNumber Add(BigNumber &);
-		static BigNumber Subtract(BigNumber &);
-		static BigNumber Multiply(BigNumber &);
-		static BigNumber Divide(BigNumber &);
-		static BigNumber Mod(BigNumber &);
+	// Addition
+	BigNumber operator+(BigNumber const &);
 
-		BigNumber operator + (BigNumber const &);
-		BigNumber operator + (long long const &);
+	// Subtraction
+	BigNumber operator-(BigNumber const &);
 
-		BigNumber operator - (BigNumber const &);
-		BigNumber operator - (BigNumber const &);
+	// Multiplication
+	BigNumber operator*(BigNumber const &);
 
-		BigNumber operator * (BigNumber const &);
-		BigNumber operator * (BigNumber const &);
-		
-		BigNumber operator / (BigNumber const &);
-		BigNumber operator / (BigNumber const &);
-		
-		BigNumber operator % (BigNumber const &);
-		BigNumber operator % (BigNumber const &);
-		
-		BigNumber operator = (long long const &);
+	// Division
+	BigNumber operator/(BigNumber const &);
 
-		void print();
-	};
-}
+	// Mod
+	BigNumber operator%(BigNumber const &);
+
+	BigNumber operator=(BigNumber const &);
+
+	int getDigits();
+	void print();
+};
