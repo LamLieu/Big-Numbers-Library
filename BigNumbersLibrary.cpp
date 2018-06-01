@@ -6,7 +6,12 @@
 #include <algorithm>
 using namespace std;
 
-BigNumber::BigNumber() : digits(1), numberVector(vector<int>({ 0 })) {}
+BigNumber::BigNumber() {
+	digits = 1;
+	numberVector = { 0 };
+	positive = true;
+}
+
 BigNumber::BigNumber(int num) {
 	// Counts number of digits
 	do {
@@ -18,7 +23,11 @@ BigNumber::BigNumber(int num) {
 	if (num < 0) {
 		positive = false;
 	}
+	else {
+		positive = true;
+	}
 }
+
 BigNumber::BigNumber(string s) {
 	digits = s.length();
 	int index = 0;
@@ -26,6 +35,9 @@ BigNumber::BigNumber(string s) {
 		positive = false;
 		digits--;
 		index = 1;
+	}
+	else {
+		positive = true;
 	}
 
 	for (; index < digits; index++) {
@@ -96,8 +108,8 @@ BigNumber BigNumber::operator- (BigNumber const &num) {
 BigNumber BigNumber::operator* (BigNumber const &num) {
 	vector<int> product(numberVector.size() + num.numberVector.size());
 	// Default assignments
-	vector<int> largeVector = num.numberVector, 
-				smallVector = numberVector;
+	vector<int> largeVector = num.numberVector,
+		smallVector = numberVector;
 	int	largestNumberSize = num.numberVector.size(),
 		smallestNumberSize = numberVector.size();
 	// Assignments changed based on condition
@@ -123,25 +135,36 @@ BigNumber BigNumber::operator* (BigNumber const &num) {
 
 BigNumber BigNumber::operator/ (BigNumber const &num) {
 	BigNumber result;
-	int carry = 0, 
-		temp,
-		sizeNumOne = this->numberVector.size(), 
-		sizeNumTwo = num.numberVector.size();
-	// reverse order
-	reverse(numberVector.begin(), numberVector.end());
-	reverse(num.numberVector.begin(), num.numberVector.end());
-	for (int i = 0; i < sizeNumTwo; i++) {
-		temp = numberVector.at(i) - (num.numberVector.at(i) - carry);
+	int carry = 0,
+		firstNumSize = this->numberVector.size(),
+		secondNumSize = num.numberVector.size();
+	vector<int> tempNum = num.numberVector;
+
+	for (int i = 0; i <= numberVector.size() / 2; i++) {
+		int temp = numberVector.at(i);
+		numberVector.at(i) = numberVector.at(numberVector.size() - i);
+		numberVector.at(numberVector.size() - i) = temp;
+	}
+
+	for (int i = 0; i <= numberVector.size() / 2; i++) {
+		int temp = numberVector.at(i);
+		tempNum.at(i) = numberVector.at(numberVector.size() - i);
+	}
+
+	for (int i = 0; i < secondNumSize; i++) {
+		int temp = numberVector.at(i) - (tempNum.at(i) - carry);
 		if (temp < 0) {
 			temp += 10;
 			carry = 1;
 		}
-		else
+		else {
 			carry = 0;
+		}
 		result.numberVector.push_back(temp);
 	}
-	for (int i = sizeNumTwo; i < sizeNumOne; i++) {
-		temp = this->numberVector.at(i) - carry;
+
+	for (int i = secondNumSize; i < firstNumSize; i++) {
+		int temp = this->numberVector.at(i) - carry;
 		if (temp < 0) {
 			temp += 10;
 			carry = 1;

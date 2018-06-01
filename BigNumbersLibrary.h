@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -7,8 +8,7 @@ using namespace std;
 
 class BigNumber {
 private:
-	string base;
-	int digits = 0;
+	int digits;
 	bool positive = true;
 	vector<int> numberVector;
 
@@ -36,6 +36,5 @@ public:
 
 	BigNumber operator=(BigNumber const &);
 
-	int getDigits();
 	void print();
 };
